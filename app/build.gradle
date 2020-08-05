@@ -1,0 +1,100 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.example.posts"
+        minSdkVersion 25
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+}
+
+def libs = rootProject.ext.mainDependencies
+def kaptLibs = rootProject.ext.kaptDependencies
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation project(":data")
+    implementation project(":domain")
+
+    implementation libs.appCompact
+    implementation libs.androidxCore
+    implementation libs.constraintLayout
+    implementation libs.cardView
+    implementation libs.material
+    implementation libs.recyclerView
+    implementation libs.fragmentKtx
+    implementation libs.glide
+    implementation libs.navigationFragmentKtx
+    implementation libs.navigationUiKtx
+    implementation libs.androidxAnnotations
+    implementation libs.androidxLegacySupport
+    implementation libs.paging
+    implementation libs.pagingKtx
+    implementation libs.pagingRuntimeKtx
+    implementation libs.lifecycleViewModelState
+    implementation libs.lifecycleViewModelKtx
+    implementation libs.lifecycleLiveDataKtx
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    kapt kaptLibs.lifecycleCompiler
+    kapt kaptLibs.dataBinding
+    kapt kaptLibs.glideCompiler
+
+    implementation libs.room
+    implementation libs.roomKtx
+    implementation libs.roomRx
+
+    kapt kaptLibs.roomCompiler
+
+    implementation libs.daggerAndroid
+    implementation libs.daggerAndroidSupport
+
+    kapt kaptLibs.daggerCompiler,
+            kaptLibs.daggerAndroidProcessor
+
+    annotationProcessor kaptLibs.daggerCompiler,
+            kaptLibs.daggerAndroidProcessor
+
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+repositories {
+    mavenCentral()
+}
