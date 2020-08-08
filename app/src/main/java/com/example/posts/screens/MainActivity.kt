@@ -1,7 +1,8 @@
-package com.example.posts
+package com.example.posts.screens
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.posts.R
 
 class MainActivity : AppCompatActivity() {
 
