@@ -2,8 +2,8 @@ package com.example.data.datasource
 
 import android.util.Log
 import com.example.data.mapper.BaseRemoteMapper
+import com.example.data.mapper.PostRemoteMapper
 import com.example.data.model.CommentsRemote
-import com.example.data.model.PostsRemote
 import com.example.data.model.UserRemote
 import com.example.data.service.PostsApi
 import com.example.domain.datasource.PostsRemoteDataSource
@@ -17,10 +17,19 @@ import javax.inject.Inject
 
 internal class PostsRemoteDataSourceImpl @Inject constructor(
     private val postsApi: PostsApi,
-    private val postsMapper: BaseRemoteMapper<List<PostsRemote>, List<Posts>>,
+    private val postsMapper: PostRemoteMapper,
     private val commentsMapper: BaseRemoteMapper<List<CommentsRemote>, List<Comments>>,
     private val userMapper: BaseRemoteMapper<UserRemote, User>
 ) : PostsRemoteDataSource {
+
+    override suspend fun getPost(post: String): Posts? {
+        try {
+            return postsMapper.transformPost(postsApi.getPost(post))
+        } catch (e: HttpException) {
+            Log.e("API ERROR: ", e.message())
+        }
+        return null
+    }
 
     override suspend fun getPosts(): List<Posts> {
         try {

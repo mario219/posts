@@ -9,7 +9,7 @@ import com.example.data.persistence.dao.PostsDao
     entities = [
         PostsLocal::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 internal abstract class PostsDataBase : RoomDatabase() {

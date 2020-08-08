@@ -11,6 +11,11 @@ internal interface PostsApi {
     @GET("posts")
     suspend fun getPosts(): List<PostsRemote>
 
+    @GET("posts/{id}")
+    suspend fun getPost(
+        @Path("id") id: String
+    ): PostsRemote
+
     @GET("posts/{post}/comments")
     suspend fun getPostComments(
         @Path("post") postId: String

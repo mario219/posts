@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">posts</string>
+    <string name="fav_tab">Favorites</string>
+    <string name="default_tab">All posts</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="detail_post_string">Post detail</string>
+    <string name="text_detail_tile_description">Description</string>
+    <string name="user_text">User</string>
+    <string name="user_text_info">Name: %1$s\n\nEmail: %2$s\n\nPhone: %3$s\n\nWebsite: %4$s</string>
+    <string name="comments_title_text">Comments</string>
+    <string name="comments_sample">quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto</string>
 </resources>

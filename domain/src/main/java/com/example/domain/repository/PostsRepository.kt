@@ -7,6 +7,7 @@ import com.example.domain.model.User
 
 interface PostsRepository {
 
+    suspend fun getPost(post: String): Posts?
     suspend fun getPostsFromRemote()
     fun loadPosts(): DataSource.Factory<Int, Posts>
     fun loadFavoritePosts(): DataSource.Factory<Int, Posts>

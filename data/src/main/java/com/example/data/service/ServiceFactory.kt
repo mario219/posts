@@ -12,7 +12,7 @@ internal class ServiceFactory {
         private const val TAG = "PostsService"
         private const val CONN_TIMEOUT_MILLIS = 12000L
         private const val READ_TIMEOUT_MILLIS = 12000L
-        private val BASE_URL: String = "BuildConfig.BASE_URL"
+        private val BASE_URL: String = com.example.data.BuildConfig.BASE_URL
 
         private fun getInstance() : Retrofit.Builder
         {

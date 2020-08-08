@@ -1,9 +1,11 @@
 package com.example.data.persistence.dao
 
 import androidx.paging.DataSource
+import androidx.room.Dao
 import androidx.room.Query
 import com.example.data.model.PostsLocal
 
+@Dao
 internal interface PostsDao : BaseDao<PostsLocal> {
 
     @Query("SELECT * FROM posts ORDER BY title DESC")

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="post"
+            type="com.example.domain.model.Posts" />
+
+        <variable
+            name="user"
+            type="com.example.domain.model.User" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/text_tile_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:text="@string/text_detail_tile_description"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintVertical_bias="0"/>
+
+    <TextView
+        android:id="@+id/text_post_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="10dp"
+        android:textSize="16sp"
+        android:text="@{post.body}"
+        tools:text="@string/text_detail_tile_description"
+        app:layout_constraintTop_toBottomOf="@id/text_tile_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constrainedWidth="true" />
+
+    <TextView
+        android:id="@+id/text_user_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginHorizontal="10dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="@string/user_text"
+        app:layout_constraintTop_toBottomOf="@id/text_post_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0" />
+    
+    <TextView
+        android:id="@+id/text_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="10dp"
+        android:textSize="16sp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_user_title"
+        android:text="@{String.format(@string/user_text_info, user.name, user.email, user.phone, user.website)}" />
+
+    <TextView
+        android:id="@+id/text_comment_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:paddingHorizontal="10dp"
+        android:background="@color/colorAccent"
+        android:text="@string/comments_title_text"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:gravity="center_vertical"
+        android:textAllCaps="true"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toBottomOf="@id/text_user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/text_comment_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintVertical_bias="0"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

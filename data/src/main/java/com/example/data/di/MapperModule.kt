@@ -26,11 +26,11 @@ internal abstract class MapperModule {
 
     @Binds
     @Singleton
-    abstract fun providesPostsRemoteMapper(impl: PostRemoteMapper): BaseRemoteMapper<PostsRemote, Posts>
+    abstract fun providesPostsRemoteMapper(impl: PostRemoteMapper): BaseRemoteMapper<List<PostsRemote>, List<Posts>>
 
     @Binds
     @Singleton
-    abstract fun providesCommentsRemote(impl: CommentsRemoteMapper): BaseRemoteMapper<CommentsRemote, Comments>
+    abstract fun providesCommentsRemote(impl: CommentsRemoteMapper): BaseRemoteMapper<List<CommentsRemote>, List<Comments>>
 
     @Binds
     @Singleton

@@ -14,6 +14,10 @@ class PostsRepositoryImpl @Inject constructor(
     private val remoteDataSource: PostsRemoteDataSource
 ) : PostsRepository {
 
+    override suspend fun getPost(post: String): Posts? {
+        return remoteDataSource.getPost(post)
+    }
+
     override suspend fun getPostsFromRemote() {
         remoteDataSource.getPosts().forEach {
             localDataSource.savePost(it)

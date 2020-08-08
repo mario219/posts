@@ -6,6 +6,7 @@ import com.example.domain.model.User
 
 interface PostsRemoteDataSource {
 
+    suspend fun getPost(post: String): Posts?
     suspend fun getPosts(): List<Posts>
     suspend fun getCommentsByPost(postId: String): List<Comments>
     suspend fun getPostOwner(userId: String): User?

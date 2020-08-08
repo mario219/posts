@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "posts")
 internal data class PostsLocal(
     @PrimaryKey
-    @ColumnInfo(name = "userId")
-    val userId: Int? = null,
     @ColumnInfo(name = "id")
     val id: Int? = null,
+    @ColumnInfo(name = "userId")
+    val userId: Int? = null,
     @ColumnInfo(name = "title")
     val title: String? = null,
     @ColumnInfo(name = "body")
