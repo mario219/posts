@@ -14,7 +14,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.example.domain.ASK_INTERNET
 import com.example.domain.CONTENT_IS_RELOADING
 import com.example.posts.R
 import com.example.posts.screens.posts.adapters.PostAdapter
@@ -72,6 +71,8 @@ class HomeListFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerWithAllData()
+        recycler_all.addItemDecoration(DividerItemDecoration(context, VERTICAL))
+        itemTouchHelper.attachToRecyclerView(recycler_all)
     }
 
     private fun showReloadToast() {
@@ -83,8 +84,6 @@ class HomeListFragment : DaggerFragment() {
             adapter::submitList
         ))
         recycler_all.adapter = adapter
-        recycler_all.addItemDecoration(DividerItemDecoration(context, VERTICAL))
-        itemTouchHelper.attachToRecyclerView(recycler_all)
     }
 
     private fun initFavList() {
@@ -93,7 +92,5 @@ class HomeListFragment : DaggerFragment() {
             adapter::submitList
         ))
         recycler_all.adapter = adapter
-        recycler_all.addItemDecoration(DividerItemDecoration(context, VERTICAL))
-        itemTouchHelper.attachToRecyclerView(recycler_all)
     }
 }
