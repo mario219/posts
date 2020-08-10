@@ -17,6 +17,10 @@ internal class PostsLocalDataSourceImpl @Inject constructor(
         postsDao.insert(mapper.transformToEntity(post))
     }
 
+    override suspend fun getPost(post: String): Posts {
+        return mapper.transform(postsDao.getPost(post.toInt()))
+    }
+
     override fun getPosts(): DataSource.Factory<Int, Posts> {
         return postsDao.getPosts().map {
             mapper.transform(it)
@@ -27,6 +31,11 @@ internal class PostsLocalDataSourceImpl @Inject constructor(
         return postsDao.getFavoritePosts().map {
             mapper.transform(it)
         }
+    }
+
+    override suspend fun unMarkPostFavorite(post: Posts) {
+        post.favorite = false
+        postsDao.insert(mapper.transformToEntity(post))
     }
 
     override suspend fun markPostAsFavorite(post: Posts) {

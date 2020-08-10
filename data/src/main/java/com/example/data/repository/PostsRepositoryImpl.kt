@@ -14,12 +14,12 @@ class PostsRepositoryImpl @Inject constructor(
     private val remoteDataSource: PostsRemoteDataSource
 ) : PostsRepository {
 
-    override suspend fun getPost(post: String): Posts? {
-        return remoteDataSource.getPost(post)
+    override suspend fun getPost(post: String): Posts {
+        return localDataSource.getPost(post)
     }
 
     override suspend fun getPostsFromRemote() {
-        remoteDataSource.getPosts().forEach {
+        remoteDataSource.getPosts().map {
             localDataSource.savePost(it)
         }
     }
@@ -34,6 +34,10 @@ class PostsRepositoryImpl @Inject constructor(
 
     override suspend fun markPostFavorite(post: Posts) {
         localDataSource.markPostAsFavorite(post)
+    }
+
+    override suspend fun unMarkPostAsFavorite(post: Posts) {
+        localDataSource.unMarkPostFavorite(post)
     }
 
     override suspend fun markPostAsRead(post: Posts) {

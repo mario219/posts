@@ -22,15 +22,6 @@ internal class PostsRemoteDataSourceImpl @Inject constructor(
     private val userMapper: BaseRemoteMapper<UserRemote, User>
 ) : PostsRemoteDataSource {
 
-    override suspend fun getPost(post: String): Posts? {
-        try {
-            return postsMapper.transformPost(postsApi.getPost(post))
-        } catch (e: HttpException) {
-            Log.e("API ERROR: ", e.message())
-        }
-        return null
-    }
-
     override suspend fun getPosts(): List<Posts> {
         try {
             val posts = postsApi.getPosts()

@@ -12,7 +12,8 @@ import javax.inject.Singleton
 @Component(modules = [
     AndroidInjectionModule::class,
     ScreensModule::class,
-    UtilsModule::class
+    UtilsModule::class,
+    FrameworkDependencies::class
 ])
 interface ApplicationComponent : AndroidInjector<PostsApp> {
 

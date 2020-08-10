@@ -4,7 +4,6 @@ import com.example.data.di.RepositoryModule
 import com.example.posts.screens.PostsActivity
 import com.example.posts.screens.detail.DetailModule
 import com.example.posts.screens.posts.all.HomeListModule
-import com.example.posts.screens.posts.fav.FavListModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -15,7 +14,6 @@ import dagger.android.ContributesAndroidInjector
 @Module(includes = [
     RepositoryModule::class,
     HomeListModule::class,
-    FavListModule::class,
     DetailModule::class
 ])
 /**

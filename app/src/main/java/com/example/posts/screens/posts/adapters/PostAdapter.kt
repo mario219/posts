@@ -10,7 +10,7 @@ class PostAdapter : PagedListAdapter<Posts, PostViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = PostViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(getItem(position))
+         holder.bind(getItem(position))
     }
 
     companion object {

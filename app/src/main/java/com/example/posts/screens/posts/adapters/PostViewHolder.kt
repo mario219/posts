@@ -14,8 +14,8 @@ class PostViewHolder(private val parent: PostItemBinding) : RecyclerView.ViewHol
     fun bind(item: Posts?) {
         item?.run {
             parent.post = this
-            if (favorite) {
-                parent.imageFav.visibility = View.VISIBLE
+            if (favorite.not()) {
+                parent.imageFav.visibility = View.GONE
             }
             if (read) {
                 parent.imageUnread.visibility = View.GONE

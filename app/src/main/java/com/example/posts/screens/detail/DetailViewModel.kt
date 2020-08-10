@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.interactor.GetCommentsUseCase
 import com.example.domain.interactor.GetPostDetailUseCase
 import com.example.domain.interactor.GetPostOwnerUseCase
+import com.example.domain.interactor.MarkAsReadUseCase
+import com.example.domain.interactor.FavPostsUseCase
 import com.example.domain.model.Comments
 import com.example.domain.model.InfoWrapper
 import com.example.domain.model.Posts
@@ -18,9 +20,15 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val getPostOwner: GetPostOwnerUseCase,
     private val getPostComments: GetCommentsUseCase,
-    private val getPostDetail: GetPostDetailUseCase
+    private val getPostDetail: GetPostDetailUseCase,
+    private val markAsRead: MarkAsReadUseCase,
+    private val markAsFav: FavPostsUseCase
 ) : ViewModel() {
 
+    private val _fav = MutableLiveData<Boolean>()
+    val fav: LiveData<Boolean>
+        get() = _fav
+    private var post: Posts? = null
     private val _post = MutableLiveData<Posts>()
     private val _user = MutableLiveData<User>()
     private val _comments = MutableLiveData<List<Comments>>()
@@ -32,11 +40,27 @@ class DetailViewModel @Inject constructor(
         startWrappingData()
     }
 
-    fun init(post: String, user: String) {
+    fun init(postId: String, user: String) {
         viewModelScope.launch {
-            _post.postValue(getPostDetail(post))
+            post = getPostDetail(postId)
+            _post.postValue(post)
+            post?.run { markAsRead(this) }
             _user.value = getPostOwner(user)
-            _comments.postValue(getPostComments(post))
+            _comments.postValue(getPostComments(postId))
+        }
+    }
+
+    fun onFavClicked() {
+        viewModelScope.launch {
+            post?.run {
+                if (favorite) {
+                    _fav.value = false
+                    markAsFav.unMark(this)
+                } else {
+                    _fav.value = true
+                    markAsFav.mark(this)
+                }
+            }
         }
     }
 

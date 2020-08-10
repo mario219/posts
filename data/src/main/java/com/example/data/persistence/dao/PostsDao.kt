@@ -8,7 +8,10 @@ import com.example.data.model.PostsLocal
 @Dao
 internal interface PostsDao : BaseDao<PostsLocal> {
 
-    @Query("SELECT * FROM posts ORDER BY title DESC")
+    @Query("SELECT * FROM posts WHERE id = :posts")
+    suspend fun getPost(posts: Int): PostsLocal
+
+    @Query("SELECT * FROM posts")
     fun getPosts(): DataSource.Factory<Int, PostsLocal>
 
     @Query("SELECT * FROM posts WHERE fav = 1")

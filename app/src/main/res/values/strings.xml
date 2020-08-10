@@ -9,4 +9,6 @@
     <string name="user_text_info">Name: %1$s\n\nEmail: %2$s\n\nPhone: %3$s\n\nWebsite: %4$s</string>
     <string name="comments_title_text">Comments</string>
     <string name="comments_sample">quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto</string>
+    <string name="menu_fetch_text">Fetch</string>
+    <string name="menu_fav_text">Mark as Fav</string>
 </resources>
