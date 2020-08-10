@@ -9,7 +9,9 @@ import androidx.paging.toLiveData
 import com.example.domain.DATA_FETCHED
 import com.example.domain.interactor.LoadAllPostsUseCase
 import com.example.domain.interactor.LoadFavPostsUseCase
+import com.example.domain.interactor.RemovePostUseCase
 import com.example.domain.interactor.RetrievePostsFromRemoteUseCase
+import com.example.domain.model.Posts
 import com.example.posts.utils.NetworkUtils
 import com.example.posts.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
@@ -20,7 +22,8 @@ class HomeListViewModel @Inject constructor(
     private val retrievePostsFromRemote: RetrievePostsFromRemoteUseCase,
     private val network: NetworkUtils,
     private val prefs: SharedPreferences,
-    loadFavPosts: LoadFavPostsUseCase
+    loadFavPosts: LoadFavPostsUseCase,
+    private val removePostAt: RemovePostUseCase
 ) : ViewModel() {
 
     private val pageConfig = Config(
@@ -48,6 +51,12 @@ class HomeListViewModel @Inject constructor(
     fun fetchDataAgain() {
         viewModelScope.launch {
             retrievePostsFromRemote()
+        }
+    }
+
+    fun removePost(post: Posts) {
+        viewModelScope.launch {
+            removePostAt(post)
         }
     }
 

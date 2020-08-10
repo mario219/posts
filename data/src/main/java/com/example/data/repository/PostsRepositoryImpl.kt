@@ -51,4 +51,8 @@ class PostsRepositoryImpl @Inject constructor(
     override suspend fun getPostOwner(userId: String): User? {
         return remoteDataSource.getPostOwner(userId)
     }
+
+    override suspend fun removeCachedPost(post: Posts) {
+        localDataSource.removePost(post)
+    }
 }

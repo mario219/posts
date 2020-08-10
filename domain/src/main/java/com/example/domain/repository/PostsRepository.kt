@@ -16,4 +16,5 @@ interface PostsRepository {
     suspend fun markPostAsRead(post: Posts)
     suspend fun getCommentsByPost(postId: String): List<Comments>
     suspend fun getPostOwner(userId: String): User?
+    suspend fun removeCachedPost(post: Posts)
 }

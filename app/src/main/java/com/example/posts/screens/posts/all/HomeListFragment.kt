@@ -13,10 +13,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.domain.ASK_INTERNET
 import com.example.domain.CONTENT_IS_RELOADING
 import com.example.posts.R
 import com.example.posts.screens.posts.adapters.PostAdapter
+import com.example.posts.screens.posts.adapters.SwipeHelper
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.home_list_fragment.recycler_all
 import javax.inject.Inject
@@ -26,7 +28,9 @@ class HomeListFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel by viewModels<HomeListViewModel> { viewModelFactory }
-    private val adapter = PostAdapter()
+    private val adapter = PostAdapter() { viewModel.removePost(it) }
+    private val swipeHelper = SwipeHelper(adapter)
+    private val itemTouchHelper = ItemTouchHelper(swipeHelper)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,21 +50,11 @@ class HomeListFragment : DaggerFragment() {
                 true
             }
             R.id.menu_fav -> {
-                viewModel.postList.removeObservers(viewLifecycleOwner)
-                recycler_all.adapter = adapter
-                recycler_all.addItemDecoration(DividerItemDecoration(context, VERTICAL))
-                viewModel.favList.observe(viewLifecycleOwner, Observer(
-                    adapter::submitList
-                ))
+                initFavList()
                 true
             }
             R.id.menu_all_posts -> {
-                viewModel.favList.removeObservers(viewLifecycleOwner)
-                recycler_all.adapter = adapter
-                recycler_all.addItemDecoration(DividerItemDecoration(context, VERTICAL))
-                viewModel.postList.observe(viewLifecycleOwner, Observer(
-                    adapter::submitList
-                ))
+                initRecyclerWithAllData()
                 true
             }
             else -> false
@@ -77,14 +71,29 @@ class HomeListFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRecyclerWithAllData()
+    }
+
+    private fun showReloadToast() {
+        Toast.makeText(context, CONTENT_IS_RELOADING, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun initRecyclerWithAllData() {
         viewModel.postList.observe(viewLifecycleOwner, Observer(
             adapter::submitList
         ))
         recycler_all.adapter = adapter
         recycler_all.addItemDecoration(DividerItemDecoration(context, VERTICAL))
+        itemTouchHelper.attachToRecyclerView(recycler_all)
     }
 
-    private fun showReloadToast() {
-        Toast.makeText(context, CONTENT_IS_RELOADING, Toast.LENGTH_SHORT).show()
+    private fun initFavList() {
+        viewModel.postList.removeObservers(viewLifecycleOwner)
+        viewModel.favList.observe(viewLifecycleOwner, Observer(
+            adapter::submitList
+        ))
+        recycler_all.adapter = adapter
+        recycler_all.addItemDecoration(DividerItemDecoration(context, VERTICAL))
+        itemTouchHelper.attachToRecyclerView(recycler_all)
     }
 }
