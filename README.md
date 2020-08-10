@@ -1,7 +1,7 @@
 # Posts Example
 
 This repo contains an example of a basic implementation of NavigationComponent and PagedList together. 
-Also the project is written over Kotlin and follows MVVM pattern
+Also the project is written over Kotlin and follows MVVM pattern and Clean Architecture principles
 
 ## What's about
 * App fetch posts from a dummy service
