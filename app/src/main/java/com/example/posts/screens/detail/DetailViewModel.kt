@@ -1,5 +1,6 @@
 package com.example.posts.screens.detail
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,9 +16,8 @@ import com.example.domain.model.InfoWrapper
 import com.example.domain.model.Posts
 import com.example.domain.model.User
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class DetailViewModel @Inject constructor(
+class DetailViewModel @ViewModelInject constructor(
     private val getPostOwner: GetPostOwnerUseCase,
     private val getPostComments: GetCommentsUseCase,
     private val getPostDetail: GetPostDetailUseCase,

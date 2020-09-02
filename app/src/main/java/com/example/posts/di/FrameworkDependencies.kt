@@ -5,14 +5,18 @@ import android.content.SharedPreferences
 import com.example.posts.BuildConfig
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Singleton
 
 @Module
+@InstallIn(ApplicationComponent::class)
 class FrameworkDependencies {
 
     @Provides
     @Singleton
-    fun providesSharedPreferences(context: Context): SharedPreferences {
-        return context.getSharedPreferences(BuildConfig.PREFS, Context.MODE_PRIVATE)
+    fun providesSharedPreferences(@ApplicationContext appContext: Context): SharedPreferences {
+        return appContext.getSharedPreferences(BuildConfig.PREFS, Context.MODE_PRIVATE)
     }
 }

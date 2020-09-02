@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 29
@@ -90,14 +91,15 @@ dependencies {
 
     kapt kaptLibs.roomCompiler
 
-    implementation libs.daggerAndroid
-    implementation libs.daggerAndroidSupport
+    implementation libs.dagger
+    implementation libs.hilt
+    implementation libs.hiltAndroidCommon
+    implementation libs.hiltAndroid
 
-    kapt kaptLibs.daggerCompiler,
-            kaptLibs.daggerAndroidProcessor
+    kapt kaptLibs.hiltCompiler,
+            kaptLibs.hiltAndroidCompiler
 
-    annotationProcessor kaptLibs.daggerCompiler,
-            kaptLibs.daggerAndroidProcessor
+    kapt kaptLibs.daggerCompiler
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

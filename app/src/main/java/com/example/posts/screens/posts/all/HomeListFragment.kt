@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout.VERTICAL
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,15 +19,13 @@ import com.example.domain.CONTENT_IS_RELOADING
 import com.example.posts.R
 import com.example.posts.screens.posts.adapters.PostAdapter
 import com.example.posts.screens.posts.adapters.SwipeHelper
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.home_list_fragment.recycler_all
-import javax.inject.Inject
 
-class HomeListFragment : DaggerFragment() {
+@AndroidEntryPoint
+class HomeListFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val viewModel by viewModels<HomeListViewModel> { viewModelFactory }
+    private val viewModel: HomeListViewModel by viewModels()
     private val adapter = PostAdapter() { viewModel.removePost(it) }
     private val swipeHelper = SwipeHelper(adapter)
     private val itemTouchHelper = ItemTouchHelper(swipeHelper)

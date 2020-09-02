@@ -1,6 +1,7 @@
 package com.example.posts.screens.posts.all
 
 import android.content.SharedPreferences
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,9 +16,8 @@ import com.example.domain.model.Posts
 import com.example.posts.utils.NetworkUtils
 import com.example.posts.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class HomeListViewModel @Inject constructor(
+class HomeListViewModel @ViewModelInject constructor(
     loadAllPosts: LoadAllPostsUseCase,
     private val retrievePostsFromRemote: RetrievePostsFromRemoteUseCase,
     private val network: NetworkUtils,
