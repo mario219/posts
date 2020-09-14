@@ -5,12 +5,13 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.example.domain.model.Posts
 
-class PostAdapter(private val onSwipe: (Posts) -> Unit) : PagedListAdapter<Posts, PostViewHolder>(diffCallback), SwipeAdapter {
+class PostAdapter(private val onSwipe: (Posts) -> Unit) :
+    PagedListAdapter<Posts, PostViewHolder>(diffCallback), SwipeAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = PostViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-         holder.bind(getItem(position))
+        holder.bind(getItem(position))
     }
 
     override fun onItemDismiss(position: Int) {

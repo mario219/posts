@@ -54,7 +54,7 @@ class HomeListViewModel @ViewModelInject constructor(
         }
     }
 
-    fun removePost(post: Posts) {
+    fun removePostOnSwipe(post: Posts) {
         viewModelScope.launch {
             removePostAt(post)
         }

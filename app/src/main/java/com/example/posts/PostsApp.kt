@@ -7,7 +7,4 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class PostsApp : Application() {
 
-    override fun onCreate() {
-        super.onCreate()
-    }
 }

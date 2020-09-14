@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.Comments
 import com.example.posts.databinding.CommentItemBinding
 
-class CommentViewHolder(private val parent: CommentItemBinding) : RecyclerView.ViewHolder(parent.root) {
+class CommentViewHolder(private val parent: CommentItemBinding) :
+    RecyclerView.ViewHolder(parent.root) {
 
     fun bind(comment: Comments) {
         parent.comment = comment

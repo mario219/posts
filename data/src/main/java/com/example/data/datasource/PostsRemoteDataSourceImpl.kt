@@ -1,6 +1,7 @@
 package com.example.data.datasource
 
 import android.util.Log
+import com.example.data.di.IoDispatcher
 import com.example.data.mapper.BaseRemoteMapper
 import com.example.data.mapper.PostRemoteMapper
 import com.example.data.model.CommentsRemote
@@ -10,6 +11,7 @@ import com.example.domain.datasource.PostsRemoteDataSource
 import com.example.domain.model.Comments
 import com.example.domain.model.Posts
 import com.example.domain.model.User
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -19,13 +21,14 @@ internal class PostsRemoteDataSourceImpl @Inject constructor(
     private val postsApi: PostsApi,
     private val postsMapper: PostRemoteMapper,
     private val commentsMapper: BaseRemoteMapper<List<CommentsRemote>, List<Comments>>,
-    private val userMapper: BaseRemoteMapper<UserRemote, User>
+    private val userMapper: BaseRemoteMapper<UserRemote, User>,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : PostsRemoteDataSource {
 
     override suspend fun getPosts(): List<Posts> {
         try {
             val posts = postsApi.getPosts()
-            return withContext(Dispatchers.IO) {
+            return withContext(ioDispatcher) {
                 postsMapper.transform(posts)
             }
         } catch (e: HttpException) {
@@ -37,7 +40,7 @@ internal class PostsRemoteDataSourceImpl @Inject constructor(
     override suspend fun getCommentsByPost(postId: String): List<Comments> {
         try {
             val comments = postsApi.getPostComments(postId)
-            return withContext(Dispatchers.IO) {
+            return withContext(ioDispatcher) {
                 commentsMapper.transform(comments)
             }
         } catch (e: HttpException) {
@@ -49,7 +52,7 @@ internal class PostsRemoteDataSourceImpl @Inject constructor(
     override suspend fun getPostOwner(userId: String): User? {
         try {
             val user = postsApi.getPostOwner(userId)
-            return withContext(Dispatchers.IO) {
+            return withContext(ioDispatcher) {
                 userMapper.transform(user)
             }
         } catch (e: HttpException) {

@@ -6,11 +6,11 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.interactor.FavPostsUseCase
 import com.example.domain.interactor.GetCommentsUseCase
 import com.example.domain.interactor.GetPostDetailUseCase
 import com.example.domain.interactor.GetPostOwnerUseCase
 import com.example.domain.interactor.MarkAsReadUseCase
-import com.example.domain.interactor.FavPostsUseCase
 import com.example.domain.model.Comments
 import com.example.domain.model.InfoWrapper
 import com.example.domain.model.Posts

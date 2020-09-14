@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.domain.CONTENT_IS_RELOADING
@@ -26,7 +25,7 @@ import kotlinx.android.synthetic.main.home_list_fragment.recycler_all
 class HomeListFragment : Fragment() {
 
     private val viewModel: HomeListViewModel by viewModels()
-    private val adapter = PostAdapter() { viewModel.removePost(it) }
+    private val adapter = PostAdapter { viewModel.removePostOnSwipe(it) }
     private val swipeHelper = SwipeHelper(adapter)
     private val itemTouchHelper = ItemTouchHelper(swipeHelper)
 
@@ -79,17 +78,21 @@ class HomeListFragment : Fragment() {
     }
 
     private fun initRecyclerWithAllData() {
-        viewModel.postList.observe(viewLifecycleOwner, Observer(
-            adapter::submitList
-        ))
+        viewModel.postList.observe(
+            viewLifecycleOwner, Observer(
+                adapter::submitList
+            )
+        )
         recycler_all.adapter = adapter
     }
 
     private fun initFavList() {
         viewModel.postList.removeObservers(viewLifecycleOwner)
-        viewModel.favList.observe(viewLifecycleOwner, Observer(
-            adapter::submitList
-        ))
+        viewModel.favList.observe(
+            viewLifecycleOwner, Observer(
+                adapter::submitList
+            )
+        )
         recycler_all.adapter = adapter
     }
 }
