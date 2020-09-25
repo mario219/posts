@@ -15,7 +15,6 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 internal object PersistenceModule {
 
-    @JvmStatic
     @Singleton
     @Provides
     fun provideDataBase(@ApplicationContext context: Context): PostsDataBase {
@@ -26,7 +25,6 @@ internal object PersistenceModule {
         ).build()
     }
 
-    @JvmStatic
     @Singleton
     @Provides
     fun providesPostsDao(dataBase: PostsDataBase): PostsDao {

@@ -26,6 +26,5 @@ class PostAdapter(private val onSwipe: (Posts) -> Unit) :
             override fun areContentsTheSame(oldItem: Posts, newItem: Posts): Boolean =
                 oldItem == newItem
         }
-
     }
 }

@@ -12,7 +12,6 @@ import com.example.domain.model.Comments
 import com.example.domain.model.Posts
 import com.example.domain.model.User
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import javax.inject.Inject

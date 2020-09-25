@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
-internal class ServiceModule {
+internal object ServiceModule {
 
     @Provides
     @Singleton
