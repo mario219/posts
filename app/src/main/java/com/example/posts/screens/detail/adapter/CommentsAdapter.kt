@@ -4,9 +4,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.Comments
 
-class CommentsAdapter(private val comments: List<Comments>) : RecyclerView.Adapter<CommentViewHolder>() {
+class CommentsAdapter(private val comments: List<Comments>) :
+    RecyclerView.Adapter<CommentViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CommentViewHolder.from (parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        CommentViewHolder.from(parent)
 
     override fun getItemCount() = comments.size
 

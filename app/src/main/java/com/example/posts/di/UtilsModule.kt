@@ -4,15 +4,18 @@ import android.content.Context
 import com.example.posts.utils.NetworkUtils
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
+import dagger.Reusable
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Module
-object UtilsModule {
+@InstallIn(ApplicationComponent::class)
+class UtilsModule {
 
-    @JvmStatic
     @Provides
-    @Singleton
-    fun providesNetworkUtils(context: Context): NetworkUtils {
-        return NetworkUtils(context)
+    @Reusable
+    fun providesNetworkUtils(@ApplicationContext appContext: Context): NetworkUtils {
+        return NetworkUtils(appContext)
     }
 }

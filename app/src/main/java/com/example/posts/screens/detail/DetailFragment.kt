@@ -7,24 +7,21 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.example.posts.R
 import com.example.posts.databinding.PostDetailFragmentBinding
 import com.example.posts.screens.detail.adapter.CommentsAdapter
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-class DetailFragment : DaggerFragment() {
+@AndroidEntryPoint
+class DetailFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val viewModel by viewModels<DetailViewModel> { viewModelFactory }
+    private val viewModel: DetailViewModel by viewModels()
     private lateinit var binding: PostDetailFragmentBinding
     private lateinit var starredItem: MenuItem
 

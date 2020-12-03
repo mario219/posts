@@ -16,6 +16,8 @@ ext {
     gsonVersion = '2.0.1'
     roomVersion = '2.2.5'
     daggerAndroidVersion = '2.27'
+    daggerVersion = '2.28'
+    hiltAndroidVersion = '1.0.0-alpha01'
     httpLoggingInterceptorVersion = '4.5.0'
 
     mainDependencies = [
@@ -42,6 +44,11 @@ ext {
             retroFitHttpInterceptor : "com.squareup.okhttp3:logging-interceptor:$httpLoggingInterceptorVersion",
             daggerAndroid : "com.google.dagger:dagger-android:$daggerAndroidVersion",
             daggerAndroidSupport : "com.google.dagger:dagger-android-support:$daggerAndroidVersion",
+            dagger : "com.google.dagger:dagger:$daggerVersion",
+            hilt : "com.google.dagger:hilt-android:$hiltVersion",
+            hiltAndroid : "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAndroidVersion",
+            hiltAndroidCommon : "androidx.hilt:hilt-common:$hiltAndroidVersion",
+
             room : "androidx.room:room-runtime:$roomVersion",
             roomKtx: "androidx.room:room-ktx:$roomVersion",
             roomRx : "androidx.room:room-rxjava2:$roomVersion"
@@ -50,6 +57,8 @@ ext {
     kaptDependencies = [
             daggerCompiler : "com.google.dagger:dagger-compiler:$daggerAndroidVersion",
             daggerAndroidProcessor : "com.google.dagger:dagger-android-processor:$daggerAndroidVersion",
+            hiltCompiler : "com.google.dagger:hilt-android-compiler:$hiltVersion",
+            hiltAndroidCompiler : "androidx.hilt:hilt-compiler:$hiltAndroidVersion",
             roomCompiler : "androidx.room:room-compiler:$roomVersion",
             lifecycleCompiler : "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion",
             dataBinding : "com.android.databinding:compiler:$gradleVersion",

@@ -4,12 +4,15 @@ import com.example.data.repository.PostsRepositoryImpl
 import com.example.domain.repository.PostsRepository
 import dagger.Binds
 import dagger.Module
-import javax.inject.Singleton
+import dagger.Reusable
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 
-@Module(includes = [DataSourceModule::class])
+@Module
+@InstallIn(ApplicationComponent::class)
 abstract class RepositoryModule {
 
     @Binds
-    @Singleton
+    @Reusable
     abstract fun providesPostRepository(impl: PostsRepositoryImpl): PostsRepository
 }

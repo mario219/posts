@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 29
@@ -49,17 +50,19 @@ dependencies {
     implementation libs.androidxCore
     implementation libs.paging
 
-    implementation libs.daggerAndroid
-    implementation libs.daggerAndroidSupport
+    implementation libs.dagger
+    implementation libs.hilt
+    implementation libs.hiltAndroidCommon
+    implementation libs.hiltAndroid
+
     implementation libs.retroFit
     implementation libs.retroFitGson
     implementation libs.retroFitHttpInterceptor
 
-    kapt kaptLibs.daggerCompiler,
-            kaptLibs.daggerAndroidProcessor
+    kapt kaptLibs.hiltCompiler,
+            kaptLibs.hiltAndroidCompiler
 
-    annotationProcessor kaptLibs.daggerCompiler,
-            kaptLibs.daggerAndroidProcessor
+    kapt kaptLibs.daggerCompiler
 
     implementation libs.room
     implementation libs.roomKtx
@@ -77,5 +80,9 @@ dependencies {
 
 repositories {
     mavenCentral()
+}
+
+kapt {
+    correctErrorTypes true
 }
 

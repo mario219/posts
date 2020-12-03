@@ -11,10 +11,12 @@ interface SwipeAdapter {
 class SwipeHelper(val swipeAdapter: SwipeAdapter) : ItemTouchHelper.Callback() {
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: ViewHolder): Int {
-        val dragFlags =  ItemTouchHelper.UP or ItemTouchHelper.DOWN
+        val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
         val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
-        return makeMovementFlags(dragFlags,
-            swipeFlags)
+        return makeMovementFlags(
+            dragFlags,
+            swipeFlags
+        )
     }
 
     override fun onMove(
