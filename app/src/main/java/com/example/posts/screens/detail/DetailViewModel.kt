@@ -1,23 +1,24 @@
 package com.example.posts.screens.detail
 
+import androidx.annotation.VisibleForTesting
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.interactor.FavPostsUseCase
 import com.example.domain.interactor.GetCommentsUseCase
 import com.example.domain.interactor.GetPostDetailUseCase
 import com.example.domain.interactor.GetPostOwnerUseCase
 import com.example.domain.interactor.MarkAsReadUseCase
-import com.example.domain.interactor.FavPostsUseCase
 import com.example.domain.model.Comments
 import com.example.domain.model.InfoWrapper
 import com.example.domain.model.Posts
 import com.example.domain.model.User
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class DetailViewModel @Inject constructor(
+class DetailViewModel @ViewModelInject constructor(
     private val getPostOwner: GetPostOwnerUseCase,
     private val getPostComments: GetCommentsUseCase,
     private val getPostDetail: GetPostDetailUseCase,
@@ -28,7 +29,9 @@ class DetailViewModel @Inject constructor(
     private val _fav = MutableLiveData<Boolean>()
     val fav: LiveData<Boolean>
         get() = _fav
-    private var post: Posts? = null
+
+    @VisibleForTesting
+    var post: Posts? = null
     private val _post = MutableLiveData<Posts>()
     private val _user = MutableLiveData<User>()
     private val _comments = MutableLiveData<List<Comments>>()

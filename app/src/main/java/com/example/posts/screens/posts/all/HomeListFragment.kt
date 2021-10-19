@@ -9,25 +9,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout.VERTICAL
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.domain.CONTENT_IS_RELOADING
 import com.example.posts.R
 import com.example.posts.screens.posts.adapters.PostAdapter
 import com.example.posts.screens.posts.adapters.SwipeHelper
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.home_list_fragment.recycler_all
-import javax.inject.Inject
 
-class HomeListFragment : DaggerFragment() {
+@AndroidEntryPoint
+class HomeListFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val viewModel by viewModels<HomeListViewModel> { viewModelFactory }
-    private val adapter = PostAdapter() { viewModel.removePost(it) }
+    private val viewModel: HomeListViewModel by viewModels()
+    private val adapter = PostAdapter { viewModel.removePostOnSwipe(it) }
     private val swipeHelper = SwipeHelper(adapter)
     private val itemTouchHelper = ItemTouchHelper(swipeHelper)
 
@@ -73,6 +71,9 @@ class HomeListFragment : DaggerFragment() {
         initRecyclerWithAllData()
         recycler_all.addItemDecoration(DividerItemDecoration(context, VERTICAL))
         itemTouchHelper.attachToRecyclerView(recycler_all)
+        viewModel.viewEvents.observe(
+            viewLifecycleOwner, Observer(this::showErrorMessage)
+        )
     }
 
     private fun showReloadToast() {
@@ -80,17 +81,25 @@ class HomeListFragment : DaggerFragment() {
     }
 
     private fun initRecyclerWithAllData() {
-        viewModel.postList.observe(viewLifecycleOwner, Observer(
-            adapter::submitList
-        ))
+        viewModel.postList.observe(
+            viewLifecycleOwner, Observer(
+                adapter::submitList
+            )
+        )
         recycler_all.adapter = adapter
     }
 
     private fun initFavList() {
         viewModel.postList.removeObservers(viewLifecycleOwner)
-        viewModel.favList.observe(viewLifecycleOwner, Observer(
-            adapter::submitList
-        ))
+        viewModel.favList.observe(
+            viewLifecycleOwner, Observer(
+                adapter::submitList
+            )
+        )
         recycler_all.adapter = adapter
+    }
+
+    private fun showErrorMessage(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }

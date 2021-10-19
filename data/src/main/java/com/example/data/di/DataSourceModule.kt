@@ -6,20 +6,19 @@ import com.example.domain.datasource.PostsLocalDataSource
 import com.example.domain.datasource.PostsRemoteDataSource
 import dagger.Binds
 import dagger.Module
-import javax.inject.Singleton
+import dagger.Reusable
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 
-@Module(includes = [
-    ServiceModule::class,
-    PersistenceModule::class,
-    MapperModule::class
-])
+@Module
+@InstallIn(ApplicationComponent::class)
 internal abstract class DataSourceModule {
 
     @Binds
-    @Singleton
+    @Reusable
     abstract fun providesPostLocalDataSource(impl: PostsLocalDataSourceImpl): PostsLocalDataSource
 
     @Binds
-    @Singleton
+    @Reusable
     abstract fun providesPostRemoteDataSource(impl: PostsRemoteDataSourceImpl): PostsRemoteDataSource
 }

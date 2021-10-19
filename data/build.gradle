@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 29
@@ -39,6 +40,7 @@ android {
 
 def libs = rootProject.ext.mainDependencies
 def kaptLibs = rootProject.ext.kaptDependencies
+def testLibs = rootProject.ext.testDependencies
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -49,17 +51,19 @@ dependencies {
     implementation libs.androidxCore
     implementation libs.paging
 
-    implementation libs.daggerAndroid
-    implementation libs.daggerAndroidSupport
+    implementation libs.dagger
+    implementation libs.hilt
+    implementation libs.hiltAndroidCommon
+    implementation libs.hiltAndroid
+
     implementation libs.retroFit
     implementation libs.retroFitGson
     implementation libs.retroFitHttpInterceptor
 
-    kapt kaptLibs.daggerCompiler,
-            kaptLibs.daggerAndroidProcessor
+    kapt kaptLibs.hiltCompiler,
+            kaptLibs.hiltAndroidCompiler
 
-    annotationProcessor kaptLibs.daggerCompiler,
-            kaptLibs.daggerAndroidProcessor
+    kapt kaptLibs.daggerCompiler
 
     implementation libs.room
     implementation libs.roomKtx
@@ -70,12 +74,17 @@ dependencies {
     compileOnly "org.jetbrains:annotations:13.0"
     testCompileOnly "org.jetbrains:annotations:13.0"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation testLibs.jUnit
+    testImplementation testLibs.ktCorutines
+    testImplementation testLibs.coreTesting
+    androidTestImplementation testLibs.androidTest
 }
 
 repositories {
     mavenCentral()
+}
+
+kapt {
+    correctErrorTypes true
 }
 

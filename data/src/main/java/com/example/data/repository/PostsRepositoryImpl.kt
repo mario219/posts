@@ -6,6 +6,9 @@ import com.example.domain.datasource.PostsLocalDataSource
 import com.example.domain.datasource.PostsRemoteDataSource
 import com.example.domain.model.Comments
 import com.example.domain.model.Posts
+import com.example.domain.model.ResultFromRemote
+import com.example.domain.model.ResultFromRemote.Error
+import com.example.domain.model.ResultFromRemote.Success
 import com.example.domain.model.User
 import javax.inject.Inject
 
@@ -18,9 +21,18 @@ class PostsRepositoryImpl @Inject constructor(
         return localDataSource.getPost(post)
     }
 
-    override suspend fun getPostsFromRemote() {
-        remoteDataSource.getPosts().map {
-            localDataSource.savePost(it)
+    override suspend fun getPostsFromRemote(): Boolean {
+        with(remoteDataSource.getPosts()) {
+            return when (this) {
+                is Success -> {
+                    value.forEach { localDataSource.savePost(it) }
+                    true
+                }
+                is Error -> {
+                    println("$code : $error" )
+                    false
+                }
+            }
         }
     }
 
@@ -44,11 +56,11 @@ class PostsRepositoryImpl @Inject constructor(
         localDataSource.markPostAsRead(post)
     }
 
-    override suspend fun getCommentsByPost(postId: String): List<Comments> {
+    override suspend fun getCommentsByPost(postId: String): ResultFromRemote<List<Comments>> {
         return remoteDataSource.getCommentsByPost(postId)
     }
 
-    override suspend fun getPostOwner(userId: String): User? {
+    override suspend fun getPostOwner(userId: String): ResultFromRemote<User> {
         return remoteDataSource.getPostOwner(userId)
     }
 

@@ -1,29 +1,43 @@
-apply plugin: 'java-library'
-apply plugin: 'kotlin'
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
 
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
+    defaultConfig {
+        minSdkVersion 25
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
     }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
 }
 
 def libs = rootProject.ext.mainDependencies
 def kaptLibs = rootProject.ext.kaptDependencies
+def testLibs = rootProject.ext.testDependencies
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -41,7 +55,19 @@ dependencies {
 
     annotationProcessor kaptLibs.daggerCompiler,
             kaptLibs.daggerAndroidProcessor
+
+    testImplementation testLibs.jUnit
+    testImplementation testLibs.coreTesting
+    testImplementation testLibs.ktCorutines
+    testImplementation testLibs.mockk
+    androidTestImplementation testLibs.androidTest
 }
 
-sourceCompatibility = "7"
-targetCompatibility = "7"
+repositories {
+    mavenCentral()
+}
+
+kapt {
+    correctErrorTypes true
+}
+

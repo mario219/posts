@@ -16,4 +16,7 @@ internal interface PostsDao : BaseDao<PostsLocal> {
 
     @Query("SELECT * FROM posts WHERE fav = 1")
     fun getFavoritePosts(): DataSource.Factory<Int, PostsLocal>
+
+    @Query("DELETE FROM posts")
+    fun deleteAllPosts()
 }

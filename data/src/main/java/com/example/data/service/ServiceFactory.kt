@@ -34,7 +34,7 @@ internal class ServiceFactory {
                 response
             }
 
-            var loggingInterceptor = HttpLoggingInterceptor()
+            val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
             clientBuilder.connectTimeout(CONN_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
@@ -57,7 +57,7 @@ internal class ServiceFactory {
         fun <T> getService(type: Class<T>) : T
         {
             Log.d(TAG, "getServiceInstance() called with: type = [$type]")
-            var retrofit = getInstance()
+            val retrofit = getInstance()
             return retrofit.build().create(type)
         }
     }

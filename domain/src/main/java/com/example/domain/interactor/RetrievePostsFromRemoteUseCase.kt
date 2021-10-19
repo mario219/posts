@@ -7,7 +7,11 @@ class RetrievePostsFromRemoteUseCase @Inject constructor(
     private val repository: PostsRepository
 ) {
 
-    suspend operator fun invoke() {
-        repository.getPostsFromRemote()
+    suspend operator fun invoke(): String {
+        return if (repository.getPostsFromRemote()) {
+            ""
+        } else {
+            "Something happened when fetching new content"
+        }
     }
 }

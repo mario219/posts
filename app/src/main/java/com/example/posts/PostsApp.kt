@@ -1,14 +1,10 @@
 package com.example.posts
 
-import com.example.posts.di.DaggerApplicationComponent
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
+import android.app.Application
 
-open class PostsApp : DaggerApplication() {
+import dagger.hilt.android.HiltAndroidApp
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerApplicationComponent
-            .factory()
-            .create(applicationContext)
-    }
+@HiltAndroidApp
+class PostsApp : Application() {
+
 }

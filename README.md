@@ -15,10 +15,6 @@ Also the project is written over Kotlin and follows MVVM pattern and Clean Archi
 * Once a post is touched and data is displayed, blue dot that indicates item it's not read, will dissapear 
 * Every item in list is capable to be marked/unmarked as favorite in the detail page. 
 
-## For improve
-* Handle no internet connection.
-* Unit testing. 
-
 ## Third libraries used
 
 * Paging
@@ -27,4 +23,6 @@ Also the project is written over Kotlin and follows MVVM pattern and Clean Archi
 * Retrofit 2
 * Room 
 * OkHttp
+* MockK
+
 
