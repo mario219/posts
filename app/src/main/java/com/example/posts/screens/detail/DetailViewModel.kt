@@ -1,5 +1,6 @@
 package com.example.posts.screens.detail
 
+import androidx.annotation.VisibleForTesting
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -28,7 +29,9 @@ class DetailViewModel @ViewModelInject constructor(
     private val _fav = MutableLiveData<Boolean>()
     val fav: LiveData<Boolean>
         get() = _fav
-    private var post: Posts? = null
+
+    @VisibleForTesting
+    var post: Posts? = null
     private val _post = MutableLiveData<Posts>()
     private val _user = MutableLiveData<User>()
     private val _comments = MutableLiveData<List<Comments>>()

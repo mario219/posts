@@ -71,6 +71,9 @@ class HomeListFragment : Fragment() {
         initRecyclerWithAllData()
         recycler_all.addItemDecoration(DividerItemDecoration(context, VERTICAL))
         itemTouchHelper.attachToRecyclerView(recycler_all)
+        viewModel.viewEvents.observe(
+            viewLifecycleOwner, Observer(this::showErrorMessage)
+        )
     }
 
     private fun showReloadToast() {
@@ -94,5 +97,9 @@ class HomeListFragment : Fragment() {
             )
         )
         recycler_all.adapter = adapter
+    }
+
+    private fun showErrorMessage(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }

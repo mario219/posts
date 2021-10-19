@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
@@ -23,7 +22,7 @@ class DetailFragment : Fragment() {
 
     private val viewModel: DetailViewModel by viewModels()
     private lateinit var binding: PostDetailFragmentBinding
-    private lateinit var starredItem: MenuItem
+    private var starredItem: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,12 +69,10 @@ class DetailFragment : Fragment() {
     }
 
     private fun loadData() {
-        viewModel.info.observe(viewLifecycleOwner, Observer {
-            it.post?.favorite?.run {
-                if (this) {
-                    if (::starredItem.isInitialized)
-                        starredItem.icon = context?.resources?.getDrawable(R.drawable.ic_menu_star_)
-                }
+        viewModel.info.observe(viewLifecycleOwner, {
+            with(it.post?.favorite) {
+                if (this == true)
+                starredItem?.icon = context?.resources?.getDrawable(R.drawable.ic_menu_star_)
             }
             binding.post = it.post
             binding.user = it.user
@@ -88,11 +85,11 @@ class DetailFragment : Fragment() {
     }
 
     private fun handleOnFavClicked() {
-        viewModel.fav.observe(viewLifecycleOwner, Observer { fav ->
+        viewModel.fav.observe(viewLifecycleOwner, { fav ->
             if (fav) {
-                starredItem.icon = context?.resources?.getDrawable(R.drawable.ic_menu_star_)
+                starredItem?.icon = context?.resources?.getDrawable(R.drawable.ic_menu_star_)
             } else {
-                starredItem.icon = context?.resources?.getDrawable(R.drawable.ic_menu_star_border)
+                starredItem?.icon = context?.resources?.getDrawable(R.drawable.ic_menu_star_border)
             }
         })
     }

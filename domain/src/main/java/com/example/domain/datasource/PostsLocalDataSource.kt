@@ -13,4 +13,5 @@ interface PostsLocalDataSource {
     suspend fun unMarkPostFavorite(post: Posts)
     suspend fun markPostAsRead(post: Posts)
     suspend fun removePost(post: Posts)
+    suspend fun cleanPosts()
 }

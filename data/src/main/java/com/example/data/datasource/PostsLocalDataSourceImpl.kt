@@ -51,4 +51,8 @@ internal class PostsLocalDataSourceImpl @Inject constructor(
     override suspend fun removePost(post: Posts) {
         postsDao.delete(mapper.transformToEntity(post))
     }
+
+    override suspend fun cleanPosts() {
+        postsDao.deleteAllPosts()
+    }
 }

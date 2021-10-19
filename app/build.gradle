@@ -46,6 +46,7 @@ android {
 
 def libs = rootProject.ext.mainDependencies
 def kaptLibs = rootProject.ext.kaptDependencies
+def testLibs = rootProject.ext.testDependencies
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -101,9 +102,11 @@ dependencies {
 
     kapt kaptLibs.daggerCompiler
 
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation testLibs.jUnit
+    testImplementation testLibs.coreTesting
+    testImplementation testLibs.ktCorutines
+    testImplementation testLibs.mockk
+    androidTestImplementation testLibs.androidTest
 }
 
 repositories {

@@ -37,6 +37,7 @@ android {
 
 def libs = rootProject.ext.mainDependencies
 def kaptLibs = rootProject.ext.kaptDependencies
+def testLibs = rootProject.ext.testDependencies
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -54,6 +55,12 @@ dependencies {
 
     annotationProcessor kaptLibs.daggerCompiler,
             kaptLibs.daggerAndroidProcessor
+
+    testImplementation testLibs.jUnit
+    testImplementation testLibs.coreTesting
+    testImplementation testLibs.ktCorutines
+    testImplementation testLibs.mockk
+    androidTestImplementation testLibs.androidTest
 }
 
 repositories {
